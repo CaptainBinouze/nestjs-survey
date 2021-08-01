@@ -1,0 +1,22 @@
+{
+    "title": "My survey",
+    "description": "La description de mon survey",
+    "slug": "jd45gffg45",
+    "questions": [
+        {
+            "title": "Q1",
+            "type": "one",
+            "options": [
+                {
+                    "title": "Option 1",
+                    "value": "1"
+                },
+                {
+                    "title": "Option 2",
+                    "value": "2"
+                }
+            ]
+        }
+    ]
+
+}

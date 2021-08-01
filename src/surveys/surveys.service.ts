@@ -15,23 +15,26 @@ export class SurveysService {
     @Inject('ANSWER_MODEL') private readonly answerModel: Model<Answer>
   ) { }
 
-  create(createSurveyDto: CreateSurveyDto) {
-    return 'This action adds a new survey';
+  async create(createSurveyDto: CreateSurveyDto): Promise<Survey> {
+    return this.surveyModel.create(createSurveyDto);
   }
 
-  findAll() {
-    return `This action returns all surveys`;
+  async findAll(): Promise<Survey[]> {
+    
+    return this.surveyModel.find({})
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} survey`;
+  async findOne(id: string): Promise<Survey> {
+    
+    return this.surveyModel.findById(id)
   }
 
-  update(id: number, updateSurveyDto: UpdateSurveyDto) {
-    return `This action updates a #${id} survey`;
+  async update(id: string, updateSurveyDto: UpdateSurveyDto): Promise<Survey> {
+    return this.surveyModel.findByIdAndUpdate(id, updateSurveyDto, { new: true });
   }
 
-  remove(id: number) {
+  async remove(id: string) {
     return `This action removes a #${id} survey`;
   }
+
 }
