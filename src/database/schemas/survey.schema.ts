@@ -21,8 +21,30 @@ export const SurveySchema = new mongoose.Schema({
         required: [true, 'SLUG_IS_BLANK']
     },
     questions: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Question'
+        title: {
+            type: String,
+            minlength: [5, 'QUESTION_TITLE_IS_TOO_SHORT'],
+            maxlength: [255, 'QUESTION_TITLE_IS_TOO_LONG'],
+            required: [true, 'QUESTION_TITLE_IS_BLANK']
+        },
+        type: {
+            type: String,
+            enum: ['one', 'multiple'],
+            required: [true, 'TYPE_IS_BLANK']
+        },
+        options: [{
+            title: {
+                type: String,
+                minlength: [1, 'TITLE_IS_TOO_SHORT'],
+                maxlength: [255, 'TITLE_IS_TOO_LONG'],
+                required: [true, 'TITLE_IS_BLANK']
+            },
+            value: {
+                type: Number,
+                min: [0, 'VALUE_IS_TOO_SMALL'],
+                max: [100, 'VALUE_IS_TOO_BIG']
+            }
+        }]
     }],
     answers: [{
         type: mongoose.Schema.Types.ObjectId,
