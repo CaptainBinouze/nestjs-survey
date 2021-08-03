@@ -24,6 +24,11 @@ export class SurveysController {
     return this.surveysService.findOne(id);
   }
 
+  @Get(':id/answers')
+  findOnePopulatedAnswers(@Param('id') id: string) {
+    return this.surveysService.findOnePopulatedAnswers(id);
+  }
+
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateSurveyDto: UpdateSurveyDto) {
     return this.surveysService.update(id, updateSurveyDto);

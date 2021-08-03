@@ -29,6 +29,32 @@ export class SurveysService {
     return this.surveyModel.findById(id)
   }
 
+  async findOnePopulatedAnswers(id: string): Promise<Survey> {
+    let survey = await this.surveyModel.findById(id).populate('answers');
+    let list = new Array();
+    survey.answers.forEach(answer => {
+      answer.choices.forEach(choice => {
+        if(choice.question in list) {
+
+          if(choice.value in list[choice.question]) {
+            list[choice.question][choice.value]++;
+          } else {
+            list[choice.question] = {
+              ...list[choice.question],
+              [choice.value]: 1 
+            }
+          }
+        } else {
+          list[choice.question] = {[choice.value]: 1};
+        }
+      });
+    });
+
+    console.log(list);
+
+    return survey;
+  }
+
   async update(id: string, updateSurveyDto: UpdateSurveyDto): Promise<Survey> {
     return this.surveyModel.findByIdAndUpdate(id, updateSurveyDto, { new: true });
   }
